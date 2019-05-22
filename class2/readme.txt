@@ -1,6 +1,7 @@
 
 Routing Requests
 Returning JSON 
+Adding configuration
 https support, 
 Services /ping 
 
