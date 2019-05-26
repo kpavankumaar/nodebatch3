@@ -67,8 +67,10 @@ var unifiedServer = function(req,res){
     })
     req.on('end', function () {
         buffer += decoder.end();
+        console.log('*************************************',buffer);
         var chooseHandler = typeof (router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
         // construct the data object to send to the handler
+        console.log(helpers.parseJsonToObject(buffer));
         var data = {
             'trimmedPath': trimmedPath,
             'queryStringObject': queryStringObject,
@@ -76,7 +78,7 @@ var unifiedServer = function(req,res){
             'headers': headers,
             'payload': helpers.parseJsonToObject(buffer)
         }
-
+    
         chooseHandler(data, function (statusCode, payload) {
             statusCode = typeof (statusCode) == 'number' ? statusCode : 200;
             payload = typeof (payload) == 'object' ? payload : {};
